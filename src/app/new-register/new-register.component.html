@@ -183,13 +183,9 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <mat-select placeholder="Fecha de Nacimiento*">
-            <mat-option value="val1">Papa</mat-option>
-            <mat-option value="val2">Mama</mat-option>
-            <mat-option value="val2">Abuelo(a)</mat-option>
-            <mat-option value="val2">Tutor</mat-option>
-            <mat-option value="val1">Hermano(a)</mat-option>
-          </mat-select>
+          <input matInput [matDatepicker]="pickerB" placeholder="Fecha de Nacimiento*">
+          <mat-datepicker-toggle matSuffix [for]="pickerB"></mat-datepicker-toggle>
+          <mat-datepicker #pickerB startView="year" [startAt]="startDate"></mat-datepicker>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>

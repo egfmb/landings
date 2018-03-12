@@ -27,11 +27,21 @@ body {
 .logo{
   text-align: center;
   img{
-    width: 20%;
-    margin-bottom: 10%;
+    width: 200px;
+    height: 61px;
+    margin-bottom: 40px !important;
   }
 }
 
+.mat-focused {
+  .mat-form-field-label {
+    color: #006fba !important;
+  }
+
+  .mat-form-field-ripple {
+    background-color: #006fba !important;
+  }
+}
 
 .head-blue{
   background-color: #006fba;

@@ -8,6 +8,7 @@ import { UploadBaseSisComponent } from './upload-base-sis/upload-base-sis.compon
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { NewRegisterComponent } from './new-register/new-register.component';
 import {NewRegisterSoloComponent} from './new-register-solo/new-register-solo.component';
+import {SearchInboundComponent} from "./search-inbound/search-inbound.component";
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'search',
     component: SearchComponent
+  },
+  {
+    path: 'searchInbound',
+    component: SearchInboundComponent
   },
   {
     path: 'results',

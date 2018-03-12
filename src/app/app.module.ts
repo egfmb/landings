@@ -16,6 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { NewRegisterComponent } from './new-register/new-register.component';
 import { NewRegisterSoloComponent } from './new-register-solo/new-register-solo.component';
+import { SearchInboundComponent } from './search-inbound/search-inbound.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { NewRegisterSoloComponent } from './new-register-solo/new-register-solo.
     AppComponent,
     NewRegisterPromotionComponent,
     SearchComponent,
+    SearchInboundComponent,
     UploadBaseComponent,
     UploadBaseSisComponent,
     LoginComponent,
