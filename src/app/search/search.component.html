@@ -9,31 +9,31 @@
 
   <div class="form">
     <mat-form-field>
-      <input matInput placeholder="Correo Electrónico*" type="email">
+      <input matInput placeholder="Correo Electrónico*" type="email" [(ngModel)]="user.mail">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Teléfono" type="tel">
+      <input matInput placeholder="Teléfono" type="tel" [(ngModel)]="user.phone">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Nombre">
+      <input matInput placeholder="Nombre" [(ngModel)]="user.name">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Apellido Paterno">
+      <input matInput placeholder="Apellido Paterno" [(ngModel)]="user.patern">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Apellido Materno">
+      <input matInput placeholder="Apellido Materno" [(ngModel)]="user.matern">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Número de persona">
+      <input matInput placeholder="Número de persona" [(ngModel)]="user.numPerson">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Número de cuenta">
+      <input matInput placeholder="Número de cuenta" [(ngModel)]="user.numAcount">
     </mat-form-field>
     <br>
   </div>
@@ -41,7 +41,7 @@
 
   <div class="btn">
     <button mat-raised-button color="warn" class="cancel">CANCELAR</button>
-    <button mat-raised-button color="warn">BUSCAR</button>
+    <button mat-raised-button color="warn" (click)="save()">BUSCAR</button>
   </div>
 
 </div>

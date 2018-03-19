@@ -9,6 +9,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { NewRegisterComponent } from './new-register/new-register.component';
 import {NewRegisterSoloComponent} from './new-register-solo/new-register-solo.component';
 import {SearchInboundComponent} from "./search-inbound/search-inbound.component";
+import {ModalConfirmComponent} from "./modal-confirm/modal-confirm.component";
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path: 'upload-sis',
     component: UploadBaseSisComponent
+  },
+  {
+    path: 'modal',
+    component: ModalConfirmComponent
   }
 ];
 

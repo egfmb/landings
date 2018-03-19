@@ -9,15 +9,15 @@
 
   <div class="form">
     <mat-form-field>
-      <input matInput placeholder="Usuario">
+      <input matInput placeholder="Usuario" [(ngModel)]="user.username">
     </mat-form-field>
 <br>
     <mat-form-field>
-      <input matInput placeholder="Contraseña" type="password">
+      <input matInput placeholder="Contraseña" type="password" [(ngModel)]="user.password">
     </mat-form-field>
     <br>
     <div class="btn">
-      <button mat-raised-button color="warn">ACCEDER</button>
+      <button mat-raised-button color="warn" (click)="login()">ACCEDER</button>
     </div>
   </div>
 
