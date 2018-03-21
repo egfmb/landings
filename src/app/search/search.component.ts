@@ -1,7 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import {GeneralService} from '../services/general.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSelect} from '@angular/material';
+import { FormControl, FormGroup, FormBuilder, Validators, FormGroupDirective, NgForm } from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
 import {ModalConfirmComponent} from '../modal-confirm/modal-confirm.component';
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+}
 
 @Component({
   selector: 'app-search',
@@ -9,8 +18,13 @@ import {ModalConfirmComponent} from '../modal-confirm/modal-confirm.component';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+  @ViewChild('mail') mail: ElementRef;
   user: any = {};
   send = false;
+  inputError: any;
+  txtError: any;
+
+  maill = new FormControl('', this.validMail.bind(this));
 
   constructor(private gralService: GeneralService, public dialog: MatDialog) { }
 
@@ -29,19 +43,16 @@ export class SearchComponent implements OnInit {
       this.send = false;
 
       if(data['success'] == false) {
-        const dialogRef = this.dialog.open(ModalConfirmComponent, {
-          minWidth: '50%',
-          /*position: {
-            top: '6%'
-          },*/
-          data: { type: 'warning', content: data['msg'] }
-        });
+        this.inputError =  data['input'];
+        this.txtError = data['msg'];
 
-        dialogRef.afterClosed().subscribe(result => {
-          if(result){
-            console.log('The dialog was closed', result);
-          }
-        });
+        switch (data['input']) {
+          case 'mail':
+            this.mail.nativeElement.focus();
+            break;
+          default:
+
+        }
       }
 
 
@@ -49,6 +60,11 @@ export class SearchComponent implements OnInit {
       console.warn(err);
       this.send = false;
     });
+  }
+
+  validMail(control: FormControl){
+    if(this.inputError == 'mail'){return {'error': true};}
+    return null;
   }
 
 }

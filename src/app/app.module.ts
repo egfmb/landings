@@ -45,6 +45,7 @@ import { ModalConfirmComponent } from './modal-confirm/modal-confirm.component';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatCheckboxModule,
     MatFormFieldModule,

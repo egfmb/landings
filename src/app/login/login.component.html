@@ -9,11 +9,13 @@
 
   <div class="form">
     <mat-form-field>
-      <input matInput placeholder="Usuario" [(ngModel)]="user.username">
+      <input #username matInput placeholder="Usuario" [(ngModel)]="user.username" required>
+      <mat-error *ngIf="inputError == 'username'">{{txtError}}</mat-error>
     </mat-form-field>
 <br>
     <mat-form-field>
-      <input matInput placeholder="Contraseña" type="password" [(ngModel)]="user.password">
+      <input #password matInput placeholder="Contraseña" type="password" [(ngModel)]="user.password" required>
+      <mat-error *ngIf="inputError == 'password'">{{txtError}}</mat-error>
     </mat-form-field>
     <br>
     <div class="btn">

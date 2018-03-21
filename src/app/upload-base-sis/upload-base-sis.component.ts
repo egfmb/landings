@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./upload-base-sis.component.scss']
 })
 export class UploadBaseSisComponent implements OnInit {
+  newdata: any = {};
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  previewImage(ev){
+    console.log(ev.srcElement.files[0]);
+    this.newdata.filename = ev.srcElement.files[0].name;
   }
 
 }

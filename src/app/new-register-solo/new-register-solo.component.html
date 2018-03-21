@@ -32,8 +32,9 @@
     </mat-grid-list>
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
-        <mat-form-field>
-          <input matInput placeholder="Nombre*" [(ngModel)]="user.name">
+        <mat-form-field [ngClass]="{'mat-form-field-invalid': inputError == 'name'}">
+          <input matInput placeholder="Nombre" required #name [(ngModel)]="user.name" [formControl]="namee" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="inputError == 'name'">{{txtError}}</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
@@ -44,8 +45,9 @@
     </mat-grid-list>
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
-        <mat-form-field>
-          <input matInput placeholder="Apellido Paterno*" [(ngModel)]="user.patern">
+        <mat-form-field [ngClass]="{'mat-form-field-invalid': inputError == 'patern'}">
+          <input matInput placeholder="Apellido Paterno" required #patern [(ngModel)]="user.patern" [formControl]="paternn" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="inputError == 'patern'">{{txtError}}</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
@@ -56,8 +58,9 @@
     </mat-grid-list>
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
-        <mat-form-field>
-          <input matInput placeholder="Apellido Materno*" [(ngModel)]="user.matern">
+        <mat-form-field [ngClass]="{'mat-form-field-invalid': inputError == 'matern'}">
+          <input matInput placeholder="Apellido Materno" required #matern [(ngModel)]="user.matern" [formControl]="maternn">
+          <mat-error *ngIf="inputError == 'matern'">{{txtError}}</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
@@ -68,8 +71,9 @@
     </mat-grid-list>
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
-        <mat-form-field>
-          <input matInput placeholder="Correo Electrónico*" [(ngModel)]="user.mail">
+        <mat-form-field [ngClass]="{'mat-form-field-invalid': inputError == 'mail'}">
+          <input matInput placeholder="Correo Electrónico" required #mail [(ngModel)]="user.mail" [formControl]="maill" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="inputError == 'mail'">{{txtError}}</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
@@ -84,31 +88,34 @@
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Número Celular (10 dígitos)" [(ngModel)]="user.celRegis">
+          <input matInput placeholder="Número Celular (10 dígitos)" [(ngModel)]="user.celRegis" [maxlength]="10" type="tel" (keypress)="_keyPress($event)">
         </mat-form-field>
       </mat-grid-tile>
     </mat-grid-list>
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
-        <mat-form-field>
-          <input matInput placeholder="Número Celular (10 dígitos)*" [(ngModel)]="user.cel">
+        <mat-form-field [ngClass]="{'mat-form-field-invalid': inputError == 'cel'}">
+          <input matInput placeholder="Número Celular (10 dígitos)" required #cel [(ngModel)]="user.cel" [formControl]="cell" [errorStateMatcher]="matcher" [maxlength]="10" type="tel" (keypress)="_keyPress($event)">
+          <mat-error *ngIf="inputError == 'cel'">{{txtError}}</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Teléfono" [(ngModel)]="user.phoneRegis">
+          <input matInput placeholder="Teléfono" [(ngModel)]="user.phoneRegis" [maxlength]="10" type="tel" (keypress)="_keyPress($event)">
         </mat-form-field>
       </mat-grid-tile>
     </mat-grid-list>
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
-        <mat-form-field>
-          <input matInput placeholder="Teléfono*" [(ngModel)]="user.phone">
+        <mat-form-field [ngClass]="{'mat-form-field-invalid': inputError == 'phone'}">
+          <input matInput placeholder="Teléfono" required #phone [(ngModel)]="user.phone" [formControl]="phonee" [errorStateMatcher]="matcher" [maxlength]="10" type="tel" (keypress)="_keyPress($event)">
+          <mat-error *ngIf="inputError == 'phone'">{{txtError}}</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-form-field>
-          <mat-select placeholder="Parentezco" [(ngModel)]="user.prent">
+          <mat-select placeholder="Parentezco" [(ngModel)]="user.parent">
+            <mat-option value="0">Selecciona una opción</mat-option>
             <mat-option value="Papá">Papá</mat-option>
             <mat-option value="Mamá">Mamá</mat-option>
             <mat-option value="Abuelo(a)">Abuelo(a)</mat-option>
@@ -121,10 +128,12 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <mat-select placeholder="Género*" [(ngModel)]="user.gender">
+          <mat-select placeholder="Género" required #gender [(ngModel)]="user.gender" [formControl]="genderr" [errorStateMatcher]="matcher">
+            <mat-option value="0">Selecciona una opción</mat-option>
             <mat-option value="Hombre">Hombre</mat-option>
             <mat-option value="Mujer">Mujer</mat-option>
           </mat-select>
+          <mat-error *ngIf="inputError == 'gender'">{{txtError}}</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
@@ -133,10 +142,11 @@
     </mat-grid-list>
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
-        <mat-form-field>
-          <input matInput [matDatepicker]="pickerB" placeholder="Fecha de Nacimiento*" [(ngModel)]="user.birthday">
+        <mat-form-field [ngClass]="{'mat-form-field-invalid': inputError == 'birthday'}">
+          <input matInput [matDatepicker]="pickerB" placeholder="Fecha de Nacimiento" required #birthday [(ngModel)]="user.birthday" [formControl]="birthdayy" [errorStateMatcher]="matcher">
           <mat-datepicker-toggle matSuffix [for]="pickerB"></mat-datepicker-toggle>
           <mat-datepicker #pickerB startView="year" [startAt]="startDate"></mat-datepicker>
+          <mat-error *ngIf="inputError == 'birthday'">{{txtError}}</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
@@ -145,8 +155,9 @@
     </mat-grid-list>
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
-        <mat-form-field>
-          <input matInput placeholder="Edad*" [(ngModel)]="user.age">
+        <mat-form-field [ngClass]="{'mat-form-field-invalid': inputError == 'age'}">
+          <input matInput placeholder="Edad" required #age [(ngModel)]="user.age" [formControl]="agee" [errorStateMatcher]="matcher" type="tel" maxlength="2">
+          <mat-error *ngIf="inputError == 'age'">{{txtError}}</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
@@ -172,16 +183,19 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <mat-select placeholder="Campus*" [(ngModel)]="user.interestCampus">
+          <mat-select placeholder="Campus" required #interestCampus [(ngModel)]="user.interestCampus" [formControl]="interestCampuss" [errorStateMatcher]="matcher">
+            <mat-option value="0">Selecciona una opción</mat-option>
             <mat-option value="Atizapan">Atizapan</mat-option>
             <mat-option value="Cuitlahuac">Cuitlahuac</mat-option>
             <mat-option value="Ecatepec">Ecatepec</mat-option>
           </mat-select>
+          <mat-error *ngIf="inputError == 'interestCampus'">{{txtError}}</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-form-field>
           <mat-select placeholder="Área Ínteres" [(ngModel)]="user.interestArea">
+            <mat-option value="0">Selecciona una opción</mat-option>
             <mat-option value="val1">val1</mat-option>
             <mat-option value="val2">val2</mat-option>
           </mat-select>
@@ -193,11 +207,13 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <mat-select placeholder="Nivel*" [(ngModel)]="user.interestNivel">
+          <mat-select placeholder="Nivel" required #interestNivel [(ngModel)]="user.interestNivel" [formControl]="interestNivell" [errorStateMatcher]="matcher">
+            <mat-option value="0">Selecciona una opción</mat-option>
             <mat-option value="Bachillerato">Bachillerato</mat-option>
             <mat-option value="Licenciatura">Licenciatura</mat-option>
             <mat-option value="Posgrado">Posgrado</mat-option>
           </mat-select>
+          <mat-error *ngIf="inputError == 'interestNivel'">{{txtError}}</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
@@ -208,10 +224,11 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <mat-select placeholder="Modalidad">
-            <mat-option value="val1">Presencial</mat-option>
-            <mat-option value="val2">En línea</mat-option>
-            <mat-option value="val2">Mixta</mat-option>
+          <mat-select placeholder="Modalidad" [(ngModel)]="user.interestModel">
+            <mat-option value="0">Selecciona una opción</mat-option>
+            <mat-option value="Presencial">Presencial</mat-option>
+            <mat-option value="En línea">En línea</mat-option>
+            <mat-option value="Mixta">Mixta</mat-option>
           </mat-select>
         </mat-form-field>
       </mat-grid-tile>
@@ -223,12 +240,13 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <mat-select placeholder="Carrera">
-            <mat-option value="val1">Prepa SEP</mat-option>
-            <mat-option value="val2">Arquitectura</mat-option>
-            <mat-option value="val2">Diseño</mat-option>
-            <mat-option value="val2">Gastronomía</mat-option>
-            <mat-option value="val2">Mercadotecnia</mat-option>
+          <mat-select placeholder="Carrera" [(ngModel)]="user.interestCareer">
+            <mat-option value="0">Selecciona una opción</mat-option>
+            <mat-option value="Prepa SEP">Prepa SEP</mat-option>
+            <mat-option value="Arquitectura">Arquitectura</mat-option>
+            <mat-option value="Diseño">Diseño</mat-option>
+            <mat-option value="Gastronomía">Gastronomía</mat-option>
+            <mat-option value="Mercadotecnia">Mercadotecnia</mat-option>
           </mat-select>
         </mat-form-field>
       </mat-grid-tile>
@@ -240,10 +258,11 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <mat-select placeholder="Ciclo">
-            <mat-option value="val1">18-2</mat-option>
-            <mat-option value="val2">18-3</mat-option>
-            <mat-option value="val2">19-1</mat-option>
+          <mat-select placeholder="Ciclo" [(ngModel)]="user.interestCycle">
+            <mat-option value="0">Selecciona una opción</mat-option>
+            <mat-option value="18-2">18-2</mat-option>
+            <mat-option value="18-3">18-3</mat-option>
+            <mat-option value="19-1">19-1</mat-option>
           </mat-select>
         </mat-form-field>
       </mat-grid-tile>

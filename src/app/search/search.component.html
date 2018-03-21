@@ -8,8 +8,9 @@
   </div>
 
   <div class="form">
-    <mat-form-field>
-      <input matInput placeholder="Correo Electrónico*" type="email" [(ngModel)]="user.mail">
+    <mat-form-field [ngClass]="{'mat-form-field-invalid': inputError == 'mail'}">
+      <input matInput placeholder="Correo Electrónico" required #mail [(ngModel)]="user.mail" [formControl]="maill" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="inputError == 'mail'">{{txtError}}</mat-error>
     </mat-form-field>
     <br>
     <mat-form-field>

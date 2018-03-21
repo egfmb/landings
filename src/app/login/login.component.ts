@@ -1,7 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {GeneralService} from '../services/general.service';
 import {MatDialog} from '@angular/material';
+import { FormControl, FormGroup, FormBuilder, Validators, FormGroupDirective, NgForm } from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
 import {ModalConfirmComponent} from '../modal-confirm/modal-confirm.component';
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+}
 
 @Component({
   selector: 'app-login',
@@ -9,13 +18,29 @@ import {ModalConfirmComponent} from '../modal-confirm/modal-confirm.component';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  @ViewChild('username') usernameInput: ElementRef;
+  @ViewChild('password') passwordInput: ElementRef;
   user: any = {};
   send = false;
+  inputError: any;
+  txtError: any;
+  email: any;
+
+  matcher = new MyErrorStateMatcher();
 
   constructor(private gralService: GeneralService, public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.email = new FormControl('', this.validUsuario.bind(this));
+  }
 
+  validUsuario(control: FormControl){
+    console.log(this.inputError);
+    if(this.inputError == 'username'){
+      return {'error': true};
+    }
+
+    return null;
   }
 
   login(){
@@ -28,20 +53,19 @@ export class LoginComponent implements OnInit {
       console.log(data['msg']);
       this.send = false;
 
-      if(data['success'] == false) {
-        const dialogRef = this.dialog.open(ModalConfirmComponent, {
-          minWidth: '50%',
-          /*position: {
-            top: '6%'
-          },*/
-          data: { type: 'warning', content: data['msg'] }
-        });
+      this.inputError= null;
+      this.txtError = null;
 
-        dialogRef.afterClosed().subscribe(result => {
-          if(result){
-            console.log('The dialog was closed', result);
-          }
-        });
+      if(data['success'] == false) {
+        this.inputError =  data['input'];
+        this.txtError = data['msg'];
+
+        if(data['input'] == 'username'){
+          this.usernameInput.nativeElement.focus();
+        }else{
+          this.passwordInput.nativeElement.focus();
+        }
+
       }
 
 
