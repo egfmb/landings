@@ -24,6 +24,7 @@ export class SearchComponent implements OnInit {
   inputError: any;
   txtError: any;
 
+  matcher = new MyErrorStateMatcher();
   maill = new FormControl('', this.validMail.bind(this));
 
   constructor(private gralService: GeneralService, public dialog: MatDialog) { }
