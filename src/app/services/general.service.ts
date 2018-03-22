@@ -87,4 +87,15 @@ export class GeneralService {
     });
   }
 
+  validInput(params){
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl+'landing/valid-input', params, this.headerss)
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
 }

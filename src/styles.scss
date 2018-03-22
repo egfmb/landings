@@ -61,3 +61,11 @@ body {
   font-size: 12px !important;
   color: #757575 !important;
 }
+
+.mat-input-invalid.mat-focused .mat-form-field-ripple {
+  //background-color: #f44336 !important;
+}
+
+.mat-form-field-invalid .mat-form-field-underline .mat-form-field-ripple, .mat-focused .mat-form-field-invalid {
+  //background-color: #f44336 !important;
+}

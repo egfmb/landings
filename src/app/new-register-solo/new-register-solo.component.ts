@@ -41,15 +41,15 @@ export class NewRegisterSoloComponent implements OnInit {
   txtError: any;
 
   matcher = new MyErrorStateMatcher();
-  namee = new FormControl('', this.validName.bind(this));
-  paternn = new FormControl('', this.validPatern.bind(this));
-  maternn = new FormControl('', this.validMatern.bind(this));
-  maill = new FormControl('', this.validMail.bind(this));
-  cell = new FormControl('', this.validCel.bind(this));
-  phonee = new FormControl('', this.validPhone.bind(this));
+  namee = new FormControl('', [Validators.required, this.validName.bind(this)]);
+  paternn = new FormControl('', [Validators.required, this.validPatern.bind(this)]);
+  maternn = new FormControl('', [Validators.required, this.validMatern.bind(this)]);
+  maill = new FormControl('', [Validators.required, this.validMail.bind(this)]);
+  cell = new FormControl('', [Validators.required, this.validCel.bind(this)]);
+  phonee = new FormControl('', [Validators.required, this.validPhone.bind(this)]);
   genderr = new FormControl('', this.validGender.bind(this));
-  birthdayy = new FormControl('', this.validBirthday.bind(this));
-  agee = new FormControl('', this.validAge.bind(this));
+  birthdayy = new FormControl('', [Validators.required, this.validBirthday.bind(this)]);
+  agee = new FormControl('', [Validators.required, this.validAge.bind(this)]);
   interestCampuss = new FormControl('', this.validInterestCampus.bind(this));
   interestNivell = new FormControl('', this.validInterestNivel.bind(this));
 
@@ -126,32 +126,66 @@ export class NewRegisterSoloComponent implements OnInit {
     });
   }
 
+
+  serviceValidInput(type, input, value, control){
+    return this.gralService.validInput({type: type, data: value}).then((data) => {
+      if(data['success'] == false) {
+        this.inputError = input;
+        this.txtError = data['msg'];
+        return {'error': true};
+      }else{
+        this.inputError =  null;
+        this.txtError = null;
+        control.setErrors(null);
+        return null;
+      }
+    });
+  }
+
   validName(control: FormControl){
+    if(control.value){
+      return this.serviceValidInput('name', 'name', control.value, control);
+    }
     if(this.inputError == 'name'){return {'error': true};}
     return null;
   }
 
   validPatern(control: FormControl){
+    if(control.value){
+      return this.serviceValidInput('name', 'patern', control.value, control);
+    }
     if(this.inputError == 'patern'){return {'error': true};}
     return null;
   }
 
   validMatern(control: FormControl){
+    if(control.value){
+      return this.serviceValidInput('name', 'matern', control.value, control);
+    }
     if(this.inputError == 'matern'){return {'error': true};}
     return null;
   }
 
   validMail(control: FormControl){
+    if(control.value){
+      return this.serviceValidInput('mail', 'mail', control.value, control);
+    }
     if(this.inputError == 'mail'){return {'error': true};}
     return null;
   }
 
   validCel(control: FormControl){
+    if(control.value){
+      return this.serviceValidInput('cel', 'cel', control.value, control);
+    }
     if(this.inputError == 'cel'){return {'error': true};}
     return null;
   }
 
   validPhone(control: FormControl){
+    if(control.value){
+      return this.serviceValidInput('phone', 'phone', control.value, control);
+    }
     if(this.inputError == 'phone'){return {'error': true};}
     return null;
   }
