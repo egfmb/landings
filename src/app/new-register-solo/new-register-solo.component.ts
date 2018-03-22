@@ -53,6 +53,15 @@ export class NewRegisterSoloComponent implements OnInit {
   interestCampuss = new FormControl('', this.validInterestCampus.bind(this));
   interestNivell = new FormControl('', this.validInterestNivel.bind(this));
 
+  nameTxtError: any = false;
+  paternTxtError: any = false;
+  maternTxtError: any = false;
+  mailTxtError: any = false;
+  celTxtError: any = false;
+  phoneTxtError: any = false;
+  birthdayTxtError: any = false;
+  ageTxtError: any = false;
+
   constructor(private gralService: GeneralService, public dialog: MatDialog, private renderer: Renderer2) {
     this.user.parent = '0'; this.user.gender = '0';
     this.user.interestCampus = '0'; this.user.interestArea = '0'; this.user.interestNivel = '0'; this.user.interestModel = '0'; this.user.interestCareer = '0';
@@ -132,10 +141,65 @@ export class NewRegisterSoloComponent implements OnInit {
       if(data['success'] == false) {
         this.inputError = input;
         this.txtError = data['msg'];
+
+        switch(input) {
+          case 'name':
+            this.nameTxtError = data['msg'];
+            break;
+          case 'patern':
+            this.paternTxtError = data['msg'];
+            break;
+          case 'matern':
+            this.maternTxtError = data['msg'];
+            break;
+          case 'mail':
+            this.mailTxtError = data['msg'];
+            break;
+          case 'cel':
+            this.celTxtError = data['msg'];
+            break;
+          case 'phone':
+            this.phoneTxtError = data['msg'];
+            break;
+          case 'birthday':
+            this.birthdayTxtError = data['msg'];
+            break;
+          case 'age':
+            this.ageTxtError = data['msg'];
+            break;
+        }
+
         return {'error': true};
       }else{
         this.inputError =  null;
         this.txtError = null;
+
+        switch(input) {
+          case 'name':
+            this.nameTxtError = false;
+            break;
+          case 'patern':
+            this.paternTxtError = false;
+            break;
+          case 'matern':
+            this.maternTxtError = false;
+            break;
+          case 'mail':
+            this.mailTxtError = false;
+            break;
+          case 'cel':
+            this.celTxtError = false;
+            break;
+          case 'phone':
+            this.phoneTxtError = false;
+            break;
+          case 'birthday':
+            this.birthdayTxtError = false;
+            break;
+          case 'age':
+            this.ageTxtError = false;
+            break;
+        }
         control.setErrors(null);
         return null;
       }
@@ -152,7 +216,7 @@ export class NewRegisterSoloComponent implements OnInit {
 
   validPatern(control: FormControl){
     if(control.value){
-      return this.serviceValidInput('name', 'patern', control.value, control);
+      return this.serviceValidInput('patern', 'patern', control.value, control);
     }
     if(this.inputError == 'patern'){return {'error': true};}
     return null;
@@ -160,7 +224,7 @@ export class NewRegisterSoloComponent implements OnInit {
 
   validMatern(control: FormControl){
     if(control.value){
-      return this.serviceValidInput('name', 'matern', control.value, control);
+      return this.serviceValidInput('matern', 'matern', control.value, control);
     }
     if(this.inputError == 'matern'){return {'error': true};}
     return null;
@@ -217,7 +281,17 @@ export class NewRegisterSoloComponent implements OnInit {
 
   _keyPress(event: any) {
     const pattern = /[0-9\+\-\ ]/;
-    let inputChar = String.fromCharCode(event.charCode);
+    const inputChar = String.fromCharCode(event.charCode);
+
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
+  }
+
+  _keyPressTxt(event: any) {
+    const pattern = /[a-zA-Z\ñ\Ñ\ ]/;
+    const inputChar = String.fromCharCode(event.charCode);
 
     if (!pattern.test(inputChar)) {
       // invalid character, prevent input

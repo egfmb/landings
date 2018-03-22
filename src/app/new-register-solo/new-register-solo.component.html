@@ -33,8 +33,8 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Nombre" required #name [(ngModel)]="user.name" [formControl]="namee" [errorStateMatcher]="matcher">
-          <mat-error *ngIf="inputError == 'name' && !namee.hasError('required')">{{txtError}}</mat-error>
+          <input matInput placeholder="Nombre" required #name [(ngModel)]="user.name" [formControl]="namee" [errorStateMatcher]="matcher" (keypress)="_keyPressTxt($event)">
+          <mat-error *ngIf="nameTxtError && !namee.hasError('required')">{{nameTxtError}}</mat-error>
           <mat-error *ngIf="namee.hasError('required')">Por favor ingresa un nombre</mat-error>
         </mat-form-field>
       </mat-grid-tile>
@@ -47,8 +47,8 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Apellido Paterno" required #patern [(ngModel)]="user.patern" [formControl]="paternn" [errorStateMatcher]="matcher">
-          <mat-error *ngIf="inputError == 'patern' && !paternn.hasError('required')">{{txtError}}</mat-error>
+          <input matInput placeholder="Apellido Paterno" required #patern [(ngModel)]="user.patern" [formControl]="paternn" [errorStateMatcher]="matcher" (keypress)="_keyPressTxt($event)">
+          <mat-error *ngIf="paternTxtError && !paternn.hasError('required')">{{paternTxtError}}</mat-error>
           <mat-error *ngIf="paternn.hasError('required')">Por favor ingresa un apellido paterno</mat-error>
         </mat-form-field>
       </mat-grid-tile>
@@ -61,8 +61,8 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Apellido Materno" required #matern [(ngModel)]="user.matern" [formControl]="maternn" [errorStateMatcher]="matcher">
-          <mat-error *ngIf="inputError == 'matern' && !maternn.hasError('required')">{{txtError}}</mat-error>
+          <input matInput placeholder="Apellido Materno" required #matern [(ngModel)]="user.matern" [formControl]="maternn" [errorStateMatcher]="matcher" (keypress)="_keyPressTxt($event)">
+          <mat-error *ngIf="maternTxtError && !maternn.hasError('required')">{{maternTxtError}}</mat-error>
           <mat-error *ngIf="maternn.hasError('required')">Por favor ingresa un apellido materno</mat-error>
         </mat-form-field>
       </mat-grid-tile>
@@ -76,7 +76,7 @@
       <mat-grid-tile>
         <mat-form-field>
           <input matInput placeholder="Correo Electrónico" required #mail [(ngModel)]="user.mail" [formControl]="maill" [errorStateMatcher]="matcher">
-          <mat-error *ngIf="inputError == 'mail' && !maill.hasError('required')">{{txtError}}</mat-error>
+          <mat-error *ngIf="mailTxtError && !maill.hasError('required')">{{mailTxtError}}</mat-error>
           <mat-error *ngIf="maill.hasError('required')">Por favor ingresa un correo válido</mat-error>
         </mat-form-field>
       </mat-grid-tile>
@@ -100,7 +100,7 @@
       <mat-grid-tile>
         <mat-form-field>
           <input matInput placeholder="Número Celular (10 dígitos)" required #cel [(ngModel)]="user.cel" [formControl]="cell" [errorStateMatcher]="matcher" [maxlength]="10" type="tel" (keypress)="_keyPress($event)">
-          <mat-error *ngIf="inputError == 'cel' && !cell.hasError('required')">{{txtError}}</mat-error>
+          <mat-error *ngIf="celTxtError && !cell.hasError('required')">{{celTxtError}}</mat-error>
           <mat-error *ngIf="cell.hasError('required')">Ingresa número de Celular</mat-error>
         </mat-form-field>
       </mat-grid-tile>
@@ -114,7 +114,7 @@
       <mat-grid-tile>
         <mat-form-field>
           <input matInput placeholder="Teléfono" required #phone [(ngModel)]="user.phone" [formControl]="phonee" [errorStateMatcher]="matcher" [maxlength]="10" type="tel" (keypress)="_keyPress($event)">
-          <mat-error *ngIf="inputError == 'phone' && !phonee.hasError('required')">{{txtError}}</mat-error>
+          <mat-error *ngIf="phoneTxtError && !phonee.hasError('required')">{{phoneTxtError}}</mat-error>
           <mat-error *ngIf="phonee.hasError('required')">Ingresa número de Teléfono</mat-error>
         </mat-form-field>
       </mat-grid-tile>
@@ -152,7 +152,7 @@
           <input matInput [matDatepicker]="pickerB" placeholder="Fecha de Nacimiento" required #birthday [(ngModel)]="user.birthday" [formControl]="birthdayy" [errorStateMatcher]="matcher">
           <mat-datepicker-toggle matSuffix [for]="pickerB"></mat-datepicker-toggle>
           <mat-datepicker #pickerB startView="year" [startAt]="startDate"></mat-datepicker>
-          <mat-error *ngIf="inputError == 'birthday' && !birthdayy.hasError('required')">{{txtError}}</mat-error>
+          <mat-error *ngIf="birthdayTxtError && !birthdayy.hasError('required')">{{birthdayTxtError}}</mat-error>
           <mat-error *ngIf="birthdayy.hasError('required')">Ingresa una Fecha de Nacimiento</mat-error>
         </mat-form-field>
       </mat-grid-tile>
@@ -164,7 +164,7 @@
       <mat-grid-tile>
         <mat-form-field>
           <input matInput placeholder="Edad" required #age [(ngModel)]="user.age" [formControl]="agee" [errorStateMatcher]="matcher" type="tel" maxlength="2">
-          <mat-error *ngIf="inputError == 'age' && !agee.hasError('required')">{{txtError}}</mat-error>
+          <mat-error *ngIf="ageTxtError && !agee.hasError('required')">{{ageTxtError}}</mat-error>
           <mat-error *ngIf="agee.hasError('required')">Ingresa tu edad</mat-error>
         </mat-form-field>
       </mat-grid-tile>
