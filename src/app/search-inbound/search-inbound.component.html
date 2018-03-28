@@ -8,9 +8,10 @@
   </div>
 
   <div class="form">
-    <mat-form-field [ngClass]="{'mat-form-field-invalid': inputError == 'mail'}">
+    <mat-form-field>
       <input matInput placeholder="Correo Electrónico" required #mail [(ngModel)]="user.mail" [formControl]="maill" [errorStateMatcher]="matcher">
-      <mat-error *ngIf="inputError == 'mail'">{{txtError}}</mat-error>
+      <mat-error *ngIf="mailTxtError && !maill.hasError('required')">{{mailTxtError}}</mat-error>
+      <mat-error *ngIf="maill.hasError('required')">Por favor ingresa un correo válido</mat-error>
     </mat-form-field>
     <br>
     <mat-form-field>

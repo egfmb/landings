@@ -25,7 +25,14 @@ export class SearchInboundComponent implements OnInit {
   txtError: any;
 
   matcher = new MyErrorStateMatcher();
-  maill = new FormControl('', this.validMail.bind(this));
+  namee = new FormControl('', [Validators.required, this.validName.bind(this)]);
+  paternn = new FormControl('', [Validators.required, this.validPatern.bind(this)]);
+  maternn = new FormControl('', [Validators.required, this.validMatern.bind(this)]);
+  maill = new FormControl('', [Validators.required, this.validMail.bind(this)]);
+  nameTxtError: any = false;
+  paternTxtError: any = false;
+  maternTxtError: any = false;
+  mailTxtError: any = false;
 
   constructor(private gralService: GeneralService, public dialog: MatDialog) { }
 
@@ -39,7 +46,7 @@ export class SearchInboundComponent implements OnInit {
     }
     this.send = true;
 
-    this.gralService.searchInbound(this.user).then((data) => {
+    this.gralService.search(this.user).then((data) => {
       console.log(data['msg']);
       this.send = false;
 
@@ -63,8 +70,82 @@ export class SearchInboundComponent implements OnInit {
     });
   }
 
+  serviceValidInput(type, input, value, control){
+    return this.gralService.validInput({type: type, data: value}).then((data) => {
+      if(data['success'] == false) {
+        this.inputError = input;
+        this.txtError = data['msg'];
+
+        switch(input) {
+          case 'name':
+            this.nameTxtError = data['msg'];
+            break;
+          case 'patern':
+            this.paternTxtError = data['msg'];
+            break;
+          case 'matern':
+            this.maternTxtError = data['msg'];
+            break;
+          case 'mail':
+            this.mailTxtError = data['msg'];
+            break;
+        }
+
+        return {'error': true};
+      }else{
+        this.inputError =  null;
+        this.txtError = null;
+
+        switch(input) {
+          case 'name':
+            this.nameTxtError = false;
+            break;
+          case 'patern':
+            this.paternTxtError = false;
+            break;
+          case 'matern':
+            this.maternTxtError = false;
+            break;
+          case 'mail':
+            this.mailTxtError = false;
+            break;
+        }
+        control.setErrors(null);
+        return null;
+      }
+    });
+  }
+
+  validName(control: FormControl){
+    if(control.value){
+      return this.serviceValidInput('name', 'name', control.value, control);
+    }
+    if(this.inputError == 'name'){return {'error': true};}
+    return null;
+  }
+
+  validPatern(control: FormControl){
+    if(control.value){
+      return this.serviceValidInput('patern', 'patern', control.value, control);
+    }
+    if(this.inputError == 'patern'){return {'error': true};}
+    return null;
+  }
+
+  validMatern(control: FormControl){
+    if(control.value){
+      return this.serviceValidInput('matern', 'matern', control.value, control);
+    }
+    if(this.inputError == 'matern'){return {'error': true};}
+    return null;
+  }
+
   validMail(control: FormControl){
+    if(control.value){
+      return this.serviceValidInput('mail', 'mail', control.value, control);
+    }
     if(this.inputError == 'mail'){return {'error': true};}
     return null;
   }
+
 }

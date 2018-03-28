@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import {GeneralService} from '../services/general.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSelect} from '@angular/material';
 import { FormControl, FormGroup, FormBuilder, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {ModalConfirmComponent} from '../modal-confirm/modal-confirm.component';
@@ -24,23 +24,16 @@ export class LoginComponent implements OnInit {
   send = false;
   inputError: any;
   txtError: any;
-  email: any;
 
   matcher = new MyErrorStateMatcher();
+  usernamee = new FormControl('', [Validators.required]);
+  passwordd = new FormControl('', [Validators.required]);
+  usernameTxtError: any = false;
+  passwordTxtError: any = false;
 
   constructor(private gralService: GeneralService, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.email = new FormControl('', this.validUsuario.bind(this));
-  }
-
-  validUsuario(control: FormControl){
-    console.log(this.inputError);
-    if(this.inputError == 'username'){
-      return {'error': true};
-    }
-
-    return null;
   }
 
   login(){

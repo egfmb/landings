@@ -42,20 +42,33 @@ export class NewRegisterComponent implements OnInit {
 
   matcher = new MyErrorStateMatcher();
   canall = new FormControl('', this.validCanal.bind(this));
+  csqq = new FormControl('', this.validCsq.bind(this));
   interess = new FormControl('', this.validInteres.bind(this));
-  namee = new FormControl('', this.validName.bind(this));
-  paternn = new FormControl('', this.validPatern.bind(this));
-  maternn = new FormControl('', this.validMatern.bind(this));
-  maill = new FormControl('', this.validMail.bind(this));
-  cell = new FormControl('', this.validCel.bind(this));
-  phonee = new FormControl('', this.validPhone.bind(this));
+  namee = new FormControl('', [Validators.required, this.validName.bind(this)]);
+  paternn = new FormControl('', [Validators.required, this.validPatern.bind(this)]);
+  maternn = new FormControl('', [Validators.required, this.validMatern.bind(this)]);
+  maill = new FormControl('', [Validators.required, this.validMail.bind(this)]);
+  cell = new FormControl('', [Validators.required, this.validCel.bind(this)]);
+  phonee = new FormControl('', [Validators.required, this.validPhone.bind(this)]);
   genderr = new FormControl('', this.validGender.bind(this));
-  birthdayy = new FormControl('', this.validBirthday.bind(this));
-  agee = new FormControl('', this.validAge.bind(this));
+  birthdayy = new FormControl('', [Validators.required, this.validBirthday.bind(this)]);
+  agee = new FormControl('', [Validators.required, this.validAge.bind(this)]);
   interestCampuss = new FormControl('', this.validInterestCampus.bind(this));
   interestNivell = new FormControl('', this.validInterestNivel.bind(this));
+  interestModell = new FormControl('', this.validInterestModel.bind(this));
+  interestCareerr = new FormControl('', this.validInterestCareer.bind(this));
+  interestCyclee = new FormControl('', this.validInterestCycle.bind(this));
   citaCampuss = new FormControl('', this.validCitaCampus.bind(this));
   tipificacionn = new FormControl('', this.validTipificacion.bind(this));
+
+  nameTxtError: any = false;
+  paternTxtError: any = false;
+  maternTxtError: any = false;
+  mailTxtError: any = false;
+  celTxtError: any = false;
+  phoneTxtError: any = false;
+  birthdayTxtError: any = false;
+  ageTxtError: any = false;
 
   constructor(private gralService: GeneralService, public dialog: MatDialog, private renderer: Renderer2) {
     this.user.canal = '0'; this.user.interes = '0'; this.user.csq = '0'; this.user.parent = '0'; this.user.gender = '0';
@@ -73,11 +86,57 @@ export class NewRegisterComponent implements OnInit {
     }
     this.send = true;
 
-    this.gralService.register(this.user).then((data) => {
-      console.log(data['msg']);
+    const sendInfo = {
+      ApellidoMaternoR: this.user.maternRegis,
+      ApelidoPaternoR: this.user.paternRegis,
+      Campus_cita: this.user.citaCampus,
+      Campus_interes: this.user.interestCampus,
+      Canal: this.user.canal,
+      CanalPreferido: '',
+      CapturarR: '',
+      Carreras: this.user.interestCareer,
+      Ciclo: this.user.interestCycle,
+      CSQ: this.user.csq,
+      Edad: this.user.age,
+      Email: this.user.mail,
+      EmailR: this.user.mailRegis,
+      Etapas_Venta: '',
+      Fecha: this.user.citadate,
+      FirstName: this.user.name,
+      Hora: this.user.citaTime,
+      Interes: this.user.interes,
+      LastName: this.user.patern,
+      LastName2: this.user.matern,
+      Mobile: this.user.cel,
+      Modalidad: this.user.interestModel,
+      Nivel: this.user.interestNivel,
+      NombreRegistra: this.user.nameRegis,
+      Notas: this.user.note,
+      Numero_Cuenta: '',
+      Numero_Personas: '',
+      NumeroCelularR: this.user.celRegis,
+      ParentezcoR: this.user.parent,
+      Pi_equi: '',
+      reglaValidar: '',
+      telefono_domicilio: this.user.phone,
+      Telefono_trabajo: '',
+      TelefonoR: this.user.phoneRegis,
+      Tipificacion: this.user.tipificacion,
+      Transferencia_linea: this.user.citaTransfer
+    }
+
+    this.gralService.register(sendInfo).then((data) => {
+      console.log(data);
       this.send = false;
 
-      if(data['success'] == false) {
+
+
+
+
+
+
+
+      /*if(data['success'] == false) {
         this.inputError =  data['input'];
         this.txtError = data['msg'];
 
@@ -137,18 +196,7 @@ export class NewRegisterComponent implements OnInit {
           default:
 
         }
-
-        /*const dialogRef = this.dialog.open(ModalConfirmComponent, {
-          minWidth: '50%',
-          data: { type: 'warning', content: data['msg'] }
-        });
-
-        dialogRef.afterClosed().subscribe(result => {
-          if(result){
-            console.log('The dialog was closed', result);
-          }
-        });*/
-      }
+      }*/
 
 
     }, (err) => {
@@ -157,8 +205,86 @@ export class NewRegisterComponent implements OnInit {
     });
   }
 
+
+
+
+  serviceValidInput(type, input, value, control){
+    return this.gralService.validInput({type: type, data: value}).then((data) => {
+      if(data['success'] == false) {
+        this.inputError = input;
+        this.txtError = data['msg'];
+
+        switch(input) {
+          case 'name':
+            this.nameTxtError = data['msg'];
+            break;
+          case 'patern':
+            this.paternTxtError = data['msg'];
+            break;
+          case 'matern':
+            this.maternTxtError = data['msg'];
+            break;
+          case 'mail':
+            this.mailTxtError = data['msg'];
+            break;
+          case 'cel':
+            this.celTxtError = data['msg'];
+            break;
+          case 'phone':
+            this.phoneTxtError = data['msg'];
+            break;
+          case 'birthday':
+            this.birthdayTxtError = data['msg'];
+            break;
+          case 'age':
+            this.ageTxtError = data['msg'];
+            break;
+        }
+
+        return {'error': true};
+      }else{
+        this.inputError =  null;
+        this.txtError = null;
+
+        switch(input) {
+          case 'name':
+            this.nameTxtError = false;
+            break;
+          case 'patern':
+            this.paternTxtError = false;
+            break;
+          case 'matern':
+            this.maternTxtError = false;
+            break;
+          case 'mail':
+            this.mailTxtError = false;
+            break;
+          case 'cel':
+            this.celTxtError = false;
+            break;
+          case 'phone':
+            this.phoneTxtError = false;
+            break;
+          case 'birthday':
+            this.birthdayTxtError = false;
+            break;
+          case 'age':
+            this.ageTxtError = false;
+            break;
+        }
+        control.setErrors(null);
+        return null;
+      }
+    });
+  }
+
   validCanal(control: FormControl){
     if(this.user.canal == '0'){return {'error': true};}
+    return null;
+  }
+
+  validCsq(control: FormControl){
+    if(this.user.csq == '0'){return {'error': true};}
     return null;
   }
 
@@ -168,31 +294,49 @@ export class NewRegisterComponent implements OnInit {
   }
 
   validName(control: FormControl){
+    if(control.value){
+      return this.serviceValidInput('name', 'name', control.value, control);
+    }
     if(this.inputError == 'name'){return {'error': true};}
     return null;
   }
 
   validPatern(control: FormControl){
+    if(control.value){
+      return this.serviceValidInput('patern', 'patern', control.value, control);
+    }
     if(this.inputError == 'patern'){return {'error': true};}
     return null;
   }
 
   validMatern(control: FormControl){
+    if(control.value){
+      return this.serviceValidInput('matern', 'matern', control.value, control);
+    }
     if(this.inputError == 'matern'){return {'error': true};}
     return null;
   }
 
   validMail(control: FormControl){
+    if(control.value){
+      return this.serviceValidInput('mail', 'mail', control.value, control);
+    }
     if(this.inputError == 'mail'){return {'error': true};}
     return null;
   }
 
   validCel(control: FormControl){
+    if(control.value){
+      return this.serviceValidInput('cel', 'cel', control.value, control);
+    }
     if(this.inputError == 'cel'){return {'error': true};}
     return null;
   }
 
   validPhone(control: FormControl){
+    if(control.value){
+      return this.serviceValidInput('phone', 'phone', control.value, control);
+    }
     if(this.inputError == 'phone'){return {'error': true};}
     return null;
   }
@@ -222,6 +366,21 @@ export class NewRegisterComponent implements OnInit {
     return null;
   }
 
+  validInterestModel(control: FormControl){
+    if(this.user.interestModel == '0'){return {'error': true};}
+    return null;
+  }
+
+  validInterestCareer(control: FormControl){
+    if(this.user.interestCareer == '0'){return {'error': true};}
+    return null;
+  }
+
+  validInterestCycle(control: FormControl){
+    if(this.user.interestCycle == '0'){return {'error': true};}
+    return null;
+  }
+
   validCitaCampus(control: FormControl){
     if(this.user.citaCampus == '0'){return {'error': true};}
     return null;
@@ -232,13 +391,45 @@ export class NewRegisterComponent implements OnInit {
     return null;
   }
 
+
+
   _keyPress(event: any) {
     const pattern = /[0-9\+\-\ ]/;
-    let inputChar = String.fromCharCode(event.charCode);
+    const inputChar = String.fromCharCode(event.charCode);
 
     if (!pattern.test(inputChar)) {
       // invalid character, prevent input
       event.preventDefault();
+    }
+  }
+
+  _keyPressTxt(event: any) {
+    const pattern = /[a-zA-Z\ñ\Ñ\ ]/;
+    const inputChar = String.fromCharCode(event.charCode);
+
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
+
+
+    const str = event.target.value+inputChar;
+    console.log(inputChar,event.target.value,str);
+    let lastCh;
+    let countequal = 0;
+    for (let i = 0; i < str.length; i++) {
+      if(lastCh == str.charAt(i)){
+        countequal++;
+      }else{
+        countequal = 0;
+      }
+      console.log(str.charAt(i),lastCh,countequal);
+
+      if(countequal >= 3){
+        event.preventDefault();
+      }
+      lastCh = str.charAt(i);
+
     }
   }
 

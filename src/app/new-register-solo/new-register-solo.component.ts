@@ -52,6 +52,9 @@ export class NewRegisterSoloComponent implements OnInit {
   agee = new FormControl('', [Validators.required, this.validAge.bind(this)]);
   interestCampuss = new FormControl('', this.validInterestCampus.bind(this));
   interestNivell = new FormControl('', this.validInterestNivel.bind(this));
+  interestModell = new FormControl('', this.validInterestModel.bind(this));
+  interestCareerr = new FormControl('', this.validInterestCareer.bind(this));
+  interestCyclee = new FormControl('', this.validInterestCycle.bind(this));
 
   nameTxtError: any = false;
   paternTxtError: any = false;
@@ -279,6 +282,21 @@ export class NewRegisterSoloComponent implements OnInit {
     return null;
   }
 
+  validInterestModel(control: FormControl){
+    if(this.user.interestModel == '0'){return {'error': true};}
+    return null;
+  }
+
+  validInterestCareer(control: FormControl){
+    if(this.user.interestCareer == '0'){return {'error': true};}
+    return null;
+  }
+
+  validInterestCycle(control: FormControl){
+    if(this.user.interestCycle == '0'){return {'error': true};}
+    return null;
+  }
+
   _keyPress(event: any) {
     const pattern = /[0-9\+\-\ ]/;
     const inputChar = String.fromCharCode(event.charCode);
@@ -296,6 +314,26 @@ export class NewRegisterSoloComponent implements OnInit {
     if (!pattern.test(inputChar)) {
       // invalid character, prevent input
       event.preventDefault();
+    }
+
+
+    const str = event.target.value+inputChar;
+    console.log(inputChar,event.target.value,str);
+    let lastCh;
+    let countequal = 0;
+    for (let i = 0; i < str.length; i++) {
+      if(lastCh == str.charAt(i)){
+        countequal++;
+      }else{
+        countequal = 0;
+      }
+      console.log(str.charAt(i),lastCh,countequal);
+
+      if(countequal >= 3){
+        event.preventDefault();
+      }
+      lastCh = str.charAt(i);
+
     }
   }
 }

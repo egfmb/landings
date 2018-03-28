@@ -22,7 +22,8 @@
       </mat-grid-tile>
       <mat-grid-tile [colspan]="2">
         <mat-form-field>
-          <mat-select placeholder="Tipo">
+          <mat-select placeholder="Tipo" [(ngModel)]="newdata.type">
+            <mat-option value="0">Selecciona una opción</mat-option>
             <mat-option value="val1">Val1</mat-option>
             <mat-option value="val2">Val2</mat-option>
           </mat-select>

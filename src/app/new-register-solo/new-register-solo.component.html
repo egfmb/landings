@@ -163,7 +163,7 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Edad" required #age [(ngModel)]="user.age" [formControl]="agee" [errorStateMatcher]="matcher" type="tel" maxlength="2">
+          <input matInput placeholder="Edad" required #age [(ngModel)]="user.age" [formControl]="agee" [errorStateMatcher]="matcher" type="tel" (keypress)="_keyPress($event)" maxlength="2">
           <mat-error *ngIf="ageTxtError && !agee.hasError('required')">{{ageTxtError}}</mat-error>
           <mat-error *ngIf="agee.hasError('required')">Ingresa tu edad</mat-error>
         </mat-form-field>
@@ -221,7 +221,7 @@
             <mat-option value="Licenciatura">Licenciatura</mat-option>
             <mat-option value="Posgrado">Posgrado</mat-option>
           </mat-select>
-          <mat-error *ngIf="inputError == 'interestNivel' || user.interestNivel == '0'">Elige una Área de Interés</mat-error>
+          <mat-error *ngIf="inputError == 'interestNivel' || user.interestNivel == '0'">Elige una Nivel</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
@@ -232,12 +232,13 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <mat-select placeholder="Modalidad" [(ngModel)]="user.interestModel">
+          <mat-select placeholder="Modalidad" required #interestModel [(ngModel)]="user.interestModel" [formControl]="interestModell" [errorStateMatcher]="matcher">
             <mat-option value="0">Selecciona una opción</mat-option>
             <mat-option value="Presencial">Presencial</mat-option>
             <mat-option value="En línea">En línea</mat-option>
             <mat-option value="Mixta">Mixta</mat-option>
           </mat-select>
+          <mat-error *ngIf="inputError == 'interestModel' || user.interestModel == '0'">Elige una Modalidad</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
@@ -248,7 +249,7 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <mat-select placeholder="Carrera" [(ngModel)]="user.interestCareer">
+          <mat-select placeholder="Carrera" required #interestCareer [(ngModel)]="user.interestCareer" [formControl]="interestCareerr" [errorStateMatcher]="matcher">
             <mat-option value="0">Selecciona una opción</mat-option>
             <mat-option value="Prepa SEP">Prepa SEP</mat-option>
             <mat-option value="Arquitectura">Arquitectura</mat-option>
@@ -256,6 +257,7 @@
             <mat-option value="Gastronomía">Gastronomía</mat-option>
             <mat-option value="Mercadotecnia">Mercadotecnia</mat-option>
           </mat-select>
+          <mat-error *ngIf="inputError == 'interestCareer' || user.interestCareer == '0'">Elige una Carrera</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
@@ -266,12 +268,13 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <mat-select placeholder="Ciclo" [(ngModel)]="user.interestCycle">
+          <mat-select placeholder="Ciclo" required #interestCycle [(ngModel)]="user.interestCycle" [formControl]="interestCyclee" [errorStateMatcher]="matcher">
             <mat-option value="0">Selecciona una opción</mat-option>
             <mat-option value="18-2">18-2</mat-option>
             <mat-option value="18-3">18-3</mat-option>
             <mat-option value="19-1">19-1</mat-option>
           </mat-select>
+          <mat-error *ngIf="inputError == 'interestCycle' || user.interestCycle == '0'">Elige un Ciclo</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>

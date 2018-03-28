@@ -8,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class UploadBaseComponent implements OnInit {
   newdata: any = {};
 
-  constructor() { }
+  constructor() {
+    this.newdata.type = '0';
+  }
 
   ngOnInit() {
   }
